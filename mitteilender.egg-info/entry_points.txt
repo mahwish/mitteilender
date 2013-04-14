@@ -1,0 +1,6 @@
+      [paste.app_factory]
+      main = mitteilender:main
+      [console_scripts]
+      populate_mitteilender = mitteilender.scripts.populate:main
+      mitteilender_newapp = mitteilender.scripts.newapp:main
+      
