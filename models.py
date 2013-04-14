@@ -9,40 +9,20 @@ from sqlalchemy import (
 
 from . import DBSession, Base
 
-class Company_Info(Base):
-    __tablename__ = 'Company_Info'
-    
-    name = Column(Unicode(200), primary_key=True)
-            
-    
-    
-class Images(Base):
-    __tablename__ = 'Images'
-    
-    i_name = Column(Unicode(200),primary_key=True)
-    c_name = Column(Unicode(200),  ForeignKey( Company_Info.name))
-    
-       
+class Info_projects(Base):
+    __tablename__= 'info_projects'
+    ip_id=Column(Integer,primary_key=True)
+    ip_description=Column(UnicodeText)
+    name=Column(Unicode(200),unique=True)
+
+class project_items(Base):
+    __tablename__='project_items'
+    pi_id=Column(Integer,primary_key=True)
+    item_name=Column(Unicode(200))
+    item_type=Column(Unicode(200))
+    display_order=Column(Unicode(200))
+    parent_item=Column(Unicode(200))
+    infoproject_id = Column(Integer, ForeignKey(info_projects.ip_id))
 
 
-        
-class Smart_Text(Base):
-    __tablename__ = 'Smart_Text'
-    
-    url=Column(Unicode(200))
-    sms=Column(Unicode(200))
-    email=Column(Unicode(200))
-    ptcl = Column(Integer)
-    cell = Column(Integer)
-    c1_name=Column(Unicode(200),ForeignKey(Company_Info.name))
-
-
-
-
-
-class Text_info(Base):
-    __tablename__ = 'Text_info'
-    description=Column(UnicodeText)
- 
-    c2_name=Column(Unicode(200),  ForeignKey( Company_Info.name))
 
