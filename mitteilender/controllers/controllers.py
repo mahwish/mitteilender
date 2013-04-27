@@ -17,7 +17,7 @@ class Info_projectsCRUDController(CRUDController):
 @view_config(route_name='home', renderer='home.mako')
 def my_view(request):
     one = None
-    return {'one': one, 'project': 'mitteilender'}
+    return {'one': one, 'project': 'designer'}
 
 
 @view_config(route_name='contact', renderer="contact.mako")
@@ -51,12 +51,18 @@ def new_form(request):
         
             f.populate_obj(P)
             DBSession.add(P)
-            categories = DBSession.query(Info_projects.ip_id, Info_projects.name).all()
 
             request.session.flash("Your message has been sent!")
-            return HTTPFound(location=request.route_url('home'))
+            return HTTPFound(location=request.route_url('dbshow'))
 
     return {'new_form': f}
+  
+@view_config(route_name='dbshow', renderer="dbshow.mako")   
+def my_savings(request):
+    acc2 = DBSession.query(Info_projects).all()
+    
+    return {'acc2':acc2}  
+    
 
 
 
