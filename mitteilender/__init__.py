@@ -4,6 +4,9 @@ from pyramid.config import Configurator
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
 from sqlalchemy import engine_from_config
+from pyck.ext import AdminController, add_admin_handler
+from pyck.lib import get_models
+import mitteilender
 
 from models import DBSession
 
@@ -40,7 +43,9 @@ def main(global_config, **settings):
     config.add_route('pyckauth_users', '/auth/users')
     config.add_route('pyckauth_permissions', '/auth/permissions')
     config.add_route('pyckauth_routes', '/auth/routes')
-
+    
+    add_admin_handler(config, DBSession, get_models(mitteilender), 'admin', '/admin', AdminController)
+    configure_app_routes(config)
     configure_app_routes(config)
 
     config.scan()
