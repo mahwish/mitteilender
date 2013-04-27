@@ -7,9 +7,8 @@ from sqlalchemy.orm import (
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
-
-#from models import your_model_names_here
+from models import Info_projects
 from auth import Permission, User, UserPermission, RoutePermission
 
 # Place additional model names here for ease of importing.
-__all__ = ['DBSession', 'Base', 'Permission', 'User', 'UserPermission', 'RoutePermission']
+__all__ = ['DBSession', 'Base', 'Permission', 'User', 'UserPermission', 'RoutePermission','Info_projects']
