@@ -36,6 +36,7 @@ def main(global_config, **settings):
     config.add_route('new','/new')
     config.add_route('item','/item')
     config.add_route('dbshow','/dbshow')
+    config.add_route('mahi','/mahi')
 
     config.add_route('pyckauth_login', '/login')
     config.add_route('pyckauth_logout', '/logout')
