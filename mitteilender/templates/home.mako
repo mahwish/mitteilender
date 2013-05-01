@@ -7,13 +7,22 @@ PyCK Web Development Framework
 <%def name="header()">
   <div id="top" style="text-align: center">
     <br /><br />
-    <img src="${request.static_url('mitteilender:static/pyck-admin.png')}"  alt="pyck"/>
+    <img src="${request.static_url('mitteilender:static/mitti1.png')}"  alt="pyck"/>
   </div>
 </%def>
 
 <%def name="main_menu()"></%def>
   
-    
+    <div id="middle">
+      <div class="middle align-center">
+        <p><font color="teal"><b>
+          <a href="${request.route_url('mahi')}"><font color="teal"><b>New Project</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|
+
+          <a href="${request.route_url('item')}"><font color="teal"><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEdit Existing Projects</a>  
+                       </p></font></b>
+      </div>
+    </div>
+
     <div id="middle">
       <div class="middle align-center">
         <p class="app-welcome">
@@ -63,4 +72,3 @@ PyCK Web Development Framework
         </div>
       </div>
     </div>
- 
