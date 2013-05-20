@@ -81,7 +81,14 @@ def my_savings(request):
 @view_config(route_name='mahi', renderer="mahi.mako")   
 def my_sav(request):
   return {}
+
+@view_config(route_name='project_list', renderer='project_list.mako')   
+def my_func(request):
+    plist = DBSession.query(Info_projects).all()
+    
+    return {'plist':plist}
   
+
     
 
 
