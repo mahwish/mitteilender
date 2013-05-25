@@ -6,12 +6,12 @@ PyCK Project - Contact Us
       <div class="middle align-center">
         <p><font color="teal"><b>
 <div>
-<h1>Add Item</h1>
+<h1>Edit Project</h1>
 
 <form action="${request.route_url('item')}" method="POST">
     ${item_form.as_p() | n}
-    <input type="submit" name="form.submitted" value="Create" />
+    <input type="submit" name="form.submitted" value="Edit" />
 </form>
 
 <br /><br /><br /><br /><br /><br />
-</div> 
+</div>
