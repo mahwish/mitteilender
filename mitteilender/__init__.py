@@ -33,11 +33,12 @@ def main(global_config, **settings):
 
     config.add_route('home', '/')
     config.add_route('contact', '/contact')
-    config.add_route('new','/new')
-    config.add_route('item','/item')
-    config.add_route('dbshow','/dbshow')
-    config.add_route('mahi','/mahi')
-    config.add_route('project_list','/project_list')
+    config.add_route('new', '/new')
+    config.add_route('item', '/item')
+    config.add_route('dbshow', '/dbshow')
+    config.add_route('mahi', '/mahi')
+    config.add_route('project_list', '/project_list')
+    config.add_route('json_project_list', 'json/project_list')
 
     config.add_route('pyckauth_login', '/login')
     config.add_route('pyckauth_logout', '/logout')
@@ -45,6 +46,7 @@ def main(global_config, **settings):
     config.add_route('pyckauth_users', '/auth/users')
     config.add_route('pyckauth_permissions', '/auth/permissions')
     config.add_route('pyckauth_routes', '/auth/routes')
+    
     
     add_admin_handler(config, DBSession, get_models(mitteilender), 'admin', '/admin', AdminController)
     configure_app_routes(config)

@@ -35,6 +35,14 @@ def contact_form(request):
     return {'contact_form': f}
 
 
+@view_config(route_name='json_project_list', renderer='json')
+def json_proj_list(request):
+    plist = DBSession.query(Info_projects).all()
+    ret = {}
+    for p in plist:
+        ret[p.name] = p.ip_id
+
+    return ret
 
 
 
@@ -87,13 +95,6 @@ def my_func(request):
     plist = DBSession.query(Info_projects).all()
     
     return {'plist':plist}
-  
-
-    
-
-
-
-
 
 
 

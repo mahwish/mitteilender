@@ -21,6 +21,8 @@ mitteilender/controllers/controllers.py
 mitteilender/forms/__init__.py
 mitteilender/forms/auth.py
 mitteilender/forms/contact.py
+mitteilender/forms/item.py
+mitteilender/forms/new.py
 mitteilender/models/__init__.py
 mitteilender/models/auth.py
 mitteilender/models/models.py
@@ -47,7 +49,10 @@ mitteilender/static/transparent.gif
 mitteilender/static/usernamefield.png
 mitteilender/templates/base.mako
 mitteilender/templates/contact.mako
+mitteilender/templates/dbshow.mako
 mitteilender/templates/home.mako
+mitteilender/templates/item.mako
+mitteilender/templates/new.mako
 mitteilender/templates/pyckauth_base.mako
 mitteilender/templates/pyckauth_login.mako
 mitteilender/templates/pyckauth_manager.mako
