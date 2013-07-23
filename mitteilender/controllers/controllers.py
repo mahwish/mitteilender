@@ -44,14 +44,17 @@ def json_proj_list(request):
 
     return ret
 
+   
 
 
 
-#@view_config(route_name='new', renderer="new.mako")
-#def new_form(request):
 
- #   f = NewForm(request.POST)   # empty form initializes if not a POST request
-
+@view_config(route_name='json_project_details', renderer='json')
+def project_details(request):
+    
+    project_name = int(request.matchdict['id'])
+    P = DBSession.query(info_projects).filter_by(ip_id=id).first()
+   #ret P
   #  if 'POST' == request.method and 'form.submitted' in request.params:
    #     if f.validate():
             #TODO: Do email sending here.

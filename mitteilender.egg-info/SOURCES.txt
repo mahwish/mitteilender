@@ -52,7 +52,9 @@ mitteilender/templates/contact.mako
 mitteilender/templates/dbshow.mako
 mitteilender/templates/home.mako
 mitteilender/templates/item.mako
+mitteilender/templates/mahi.mako
 mitteilender/templates/new.mako
+mitteilender/templates/project_list.mako
 mitteilender/templates/pyckauth_base.mako
 mitteilender/templates/pyckauth_login.mako
 mitteilender/templates/pyckauth_manager.mako
