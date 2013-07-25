@@ -39,7 +39,7 @@ def main(global_config, **settings):
     config.add_route('mahi', '/mahi')
     config.add_route('project_list', '/project_list')
     config.add_route('json_project_list', 'json/project_list')
-    config.add_route('json_project_details', 'json/project_details')
+    config.add_route('json_project_details', 'json/project_details/{pname}')
 
     config.add_route('pyckauth_login', '/login')
     config.add_route('pyckauth_logout', '/logout')

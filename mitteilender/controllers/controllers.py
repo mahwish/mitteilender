@@ -1,10 +1,10 @@
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from pyck.forms import model_form
 from wtforms.widgets.core import Select
 from wtforms import SelectField
-from ..models import DBSession, Info_projects
+from ..models import DBSession, Info_projects, project_items
     
 from ..forms import ContactForm, NewForm, ItemForm
     
@@ -44,29 +44,21 @@ def json_proj_list(request):
 
     return ret
 
-   
-
-
-
 
 @view_config(route_name='json_project_details', renderer='json')
 def project_details(request):
     
-    project_name = int(request.matchdict['id'])
-    P = DBSession.query(info_projects).filter_by(ip_id=id).first()
-   #ret P
-  #  if 'POST' == request.method and 'form.submitted' in request.params:
-   #     if f.validate():
-            #TODO: Do email sending here.
-    #        P = Info_projects()
-        
-     #       f.populate_obj(P)
-      #      DBSession.add(P)
+    project_name = request.matchdict['pname']
+    P = DBSession.query(Info_projects).filter_by(name=project_name).first()
+    if not P:
+        return HTTPNotFound(message="Project %s does not exist" % project_name)
 
-       #     request.session.flash("Your message has been sent!")
-        #    return HTTPFound(location=request.route_url('dbshow'))
-
-    #return {'new_form': f}
+    PIs = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id).order_by(project_items.display_order)
+    ret = []
+    for PI in PIs:
+        ret.append(dict(item_name=PI.item_name, item_type=PI.item_type, display_order=PI.display_order, parent_item=PI.parent_item))
+    
+    return ret
   
 @view_config(route_name='dbshow', renderer="dbshow.mako")   
 def my_savings(request):
