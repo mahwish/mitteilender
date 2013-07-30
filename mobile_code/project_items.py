@@ -9,7 +9,7 @@ SERVER_PORT = 6543
 def display_info_projects_items():
     "Fetches info projects list from server and returns as a python list"
 
-    url = "http://{server_ip:{port}/json/project_details/{pname}".format(server_ip=SERVER_IP, port=SERVER_PORT)
+    url = "http://{server_ip}:{port}/json/project_details/ppp".format(server_ip=SERVER_IP, port=SERVER_PORT)
     json_data = urllib2.urlopen(url).read()
 
     return json.loads(json_data)
