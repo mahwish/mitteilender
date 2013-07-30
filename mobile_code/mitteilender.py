@@ -2,7 +2,7 @@ import urllib2
 import json
 import android
 
-SERVER_IP = '192.168.1.4'
+SERVER_IP = '192.168.1.6'
 SERVER_PORT = 6543
 
 
