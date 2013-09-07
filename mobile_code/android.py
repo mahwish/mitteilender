@@ -57,3 +57,4 @@ class Android(object):
     def rpc_call(*args):
       return self._rpc(name, *args)
     return rpc_call
+ 
