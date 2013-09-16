@@ -23,6 +23,11 @@ class project_items(Base):
     display_order=Column(Unicode(200))
     parent_item=Column(Unicode(200))
     infoproject_id = Column(Integer, ForeignKey(Info_projects.ip_id))
+    images_title=Column(Unicode(200))
+    email=Column(Unicode(200))
+    phone_num=Column(Unicode(200))
+    
+    
 
 
 

@@ -18,6 +18,7 @@ PyCK Web Development Framework
         <p><font color="teal"><b>
           <a href="${request.route_url('mahi')}"><font color="teal"><b>New Project</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|
           <a href="${request.route_url('project_list')}"><font color="teal"><b>Project list</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|
+          <a href="${request.route_url('more_items')}"><font color="teal"><b>More Items</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|
 
           <a href="${request.route_url('item')}"><font color="teal"><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEdit Existing Projects</a>  
                        </p></font></b>

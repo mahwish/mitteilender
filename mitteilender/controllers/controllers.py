@@ -6,9 +6,10 @@ from wtforms.widgets.core import Select
 from wtforms import SelectField
 from ..models import DBSession, Info_projects, project_items
     
-from ..forms import ContactForm, NewForm, ItemForm
+from ..forms import ContactForm, NewForm, ItemForm, MoreItemsForm
     
 from pyck.controllers import CRUDController
+import os
 
 class Info_projectsCRUDController(CRUDController):
     model = Info_projects
@@ -91,6 +92,25 @@ def my_func(request):
     
     return {'plist':plist}
 
+@view_config(route_name='more_items', renderer="more_items.mako")
+def more_items_form(request):
+
+            f = MoreItemsForm(request.POST)   # empty form initializes if not a POST request
+            if 'POST' == request.method and 'form.submitted' in request.params:
+              fff = os.path.realpath(f.image_data.data)
+              y   = f.image_data.data
+              #cwd = os.getcwd()
+              #path = cwd + '/images'
+              #path = os.path.join(cwd , '/images')
+              
+              #request.session.flash(path)
+              path = '/home/mahwish/mitteilender/mitteilender/static/'
+              open(os.path.join(path, y), 'w').write(fff)
+             
+              import webbrowser
+              webbrowser.open(path)
+             
+            return {'more_items_form': f}
 
 
 @view_config(route_name='item', renderer="item.mako")
@@ -108,3 +128,4 @@ def item_form(request):
     return {'item_form': f}
 
 
+ 
