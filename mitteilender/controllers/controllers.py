@@ -97,15 +97,18 @@ def more_items_form(request):
 
             f = MoreItemsForm(request.POST)   # empty form initializes if not a POST request
             if 'POST' == request.method and 'form.submitted' in request.params:
-              fff = os.path.realpath(f.image_data.data)
-              y   = f.image_data.data
+              #fff = os.path.realpath(f.image_data.data)
+              fff = request.POST['image_data'].file.read()
+              #y   = f.image_data.data
               #cwd = os.getcwd()
               #path = cwd + '/images'
               #path = os.path.join(cwd , '/images')
               
               #request.session.flash(path)
               path = '/home/mahwish/mitteilender/mitteilender/static/'
-              open(os.path.join(path, y), 'w').write(fff)
+              open(os.path.join(path, request.POST['image_data'].filename), 'w').write(fff)
+              
+              
              
               import webbrowser
               webbrowser.open(path)

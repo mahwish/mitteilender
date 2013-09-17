@@ -8,7 +8,7 @@ PyCK Project - More Items
 <div>
 <h1>More Items</h1>
 
-<form action="${request.route_url('more_items')}" method="POST">
+<form action="${request.route_url('more_items')}" enctype="multipart/form-data"  method="POST">
     ${more_items_form.as_p() | n } <br><br><br>
     <input type="submit" name="form.submitted" value="Upload" />
 </form>
