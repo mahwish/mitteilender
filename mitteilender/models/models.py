@@ -25,7 +25,8 @@ class project_items(Base):
     infoproject_id = Column(Integer, ForeignKey(Info_projects.ip_id))
     images_title=Column(Unicode(200))
     email=Column(Unicode(200))
-    phone_num=Column(Unicode(200))
+    landline=Column(Unicode(200))
+    cell_num=Column(Unicode(200))
     
     
 

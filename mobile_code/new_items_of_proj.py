@@ -2,7 +2,7 @@ import urllib2
 import json
 import android
  
-SERVER_IP = '192.168.1.8'
+SERVER_IP = '192.168.1.4'
 SERVER_PORT = 6543
  
  
@@ -33,8 +33,6 @@ def select_info_project(droid, project_list):
     
 
  
-    
- 
  
 if '__main__' == __name__:
  
@@ -48,6 +46,34 @@ if '__main__' == __name__:
     listt = selected_project[0]
     droid.dialogSetItems(listt.keys())
     droid.dialogShow()
+    result=droid.dialogGetResponse().result
+    if result.has_key("item"):
+      if (result["item"] == 0): 
+      
+        option = ['Message','Call']
+        droid.dialogCreateAlert("Select any one option from the following:")
+        droid.dialogSetItems(option)
+        droid.dialogShow()
+        result=droid.dialogGetResponse().result
+        if (result["item"] == 0):
+	  
+          droid.smsSend(listt['cell_num'], "hi")
+        elif (result["item"] == 1):  
+          droid.phoneCallNumber(listt['cell_num'])
+        else:
+          droid.makeToast("neutral")
+      elif (result["item"] == 5):
+	droid.phoneCallNumber(listt['landline'])
+      elif (result["item"] == 6):
+	droid.sendEmail(listt['email'],"","")
+	
+	
+    else:
+      droid.makeToast("nooo")
+	
+	
+
+      
     #droid.dialogShow()
     #response = droid.dialogGetResponse().result
     #droid.makeToast("Selected Project is: " + selected_project)

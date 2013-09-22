@@ -56,8 +56,9 @@ def project_details(request):
 
     PIs = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id).order_by(project_items.display_order)
     ret = []
+    
     for PI in PIs:
-        ret.append(dict(item_name=PI.item_name, item_type=PI.item_type, display_order=PI.display_order, parent_item=PI.parent_item))
+        ret.append(dict(item_name=PI.item_name, item_type=PI.item_type, display_order=PI.display_order, parent_item=PI.parent_item, email=PI.email, cell_num=PI.cell_num, landline=PI.landline))
     
     return ret
   
@@ -74,12 +75,13 @@ def my_savings(request):
     acc2 = DBSession.query(Info_projects).all()
     
     return {'acc2':acc2}  
-  
-  
-  
-  
-  
-  
+
+
+@view_config(route_name='image', renderer='json')
+def image(request):
+    p = request.static_url('/home/mahwish/mitteilender/mitteilender/static/komodo1.png')
+    import webbrowser
+    webbrowser.open(p)
   
   
 @view_config(route_name='mahi', renderer="mahi.mako")   
@@ -97,21 +99,22 @@ def more_items_form(request):
 
             f = MoreItemsForm(request.POST)   # empty form initializes if not a POST request
             if 'POST' == request.method and 'form.submitted' in request.params:
+	      if f.validate():
               #fff = os.path.realpath(f.image_data.data)
-              fff = request.POST['image_data'].file.read()
+               fff = request.POST['image_data'].file.read()
               #y   = f.image_data.data
               #cwd = os.getcwd()
               #path = cwd + '/images'
               #path = os.path.join(cwd , '/images')
               
               #request.session.flash(path)
-              path = '/home/mahwish/mitteilender/mitteilender/static/'
-              open(os.path.join(path, request.POST['image_data'].filename), 'w').write(fff)
+               path = '/home/agha/Documents/fyp/mitteilender/mitteilender/images'
+               open(os.path.join(path, request.POST['image_data'].filename), 'w').write(fff)
               
               
              
-              import webbrowser
-              webbrowser.open(path)
+               import webbrowser
+               webbrowser.open(path)
              
             return {'more_items_form': f}
 
