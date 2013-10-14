@@ -2,7 +2,7 @@ import urllib2
 import json
 import android
  
-SERVER_IP = '192.168.1.4'
+SERVER_IP = '192.168.1.3'
 SERVER_PORT = 6543
  
  
@@ -37,7 +37,6 @@ def select_info_project(droid, project_list):
 if '__main__' == __name__:
  
     droid = android.Android()
- 
     info_projects = get_info_projects()
     selected_project = select_info_project(droid, info_projects.keys())
     droid.dialogCreateAlert("The items of selected project are as follows:")
@@ -56,8 +55,12 @@ if '__main__' == __name__:
         droid.dialogShow()
         result=droid.dialogGetResponse().result
         if (result["item"] == 0):
-	  
-          droid.smsSend(listt['cell_num'], "hi")
+	  droid.dialogCreateInput("Message", "Please type your message")
+          droid.dialogSetPositiveButtonText("OK")
+          droid.dialogShow()
+          result = droid.dialogGetResponse().result
+          print(result)
+          droid.smsSend(listt['cell_num'], result[u'value'])
         elif (result["item"] == 1):  
           droid.phoneCallNumber(listt['cell_num'])
         else:
@@ -68,10 +71,10 @@ if '__main__' == __name__:
 	droid.sendEmail(listt['email'],"","")
 	
 	
-    else:
-      droid.makeToast("nooo")
-	
-	
+      elif (result["item"] == 1):
+	droid.view("/home/mahwish/mitteilender/mitteilender/static/exhibition_marquee_floor_plan_20130320_1894935057.jpg","image/*")
+      #droid.makeToast("nooo")
+    
 
       
     #droid.dialogShow()
@@ -82,4 +85,3 @@ if '__main__' == __name__:
     #l = display_info_projects_items(selected_project)
     #return json.loads(json_data)
     #droid.makeToast("Selected Project items are: " + "".join(str(x) for x in selected_project))
- 

@@ -58,7 +58,7 @@ def project_details(request):
     ret = []
     
     for PI in PIs:
-        ret.append(dict(item_name=PI.item_name, item_type=PI.item_type, display_order=PI.display_order, parent_item=PI.parent_item, email=PI.email, cell_num=PI.cell_num, landline=PI.landline))
+        ret.append(dict(item_name=PI.item_name, item_type=PI.item_type, display_order=PI.display_order, parent_item=PI.parent_item, email=PI.email, cell_num=PI.cell_num, landline=PI.landline, images_title=PI.images_title))
     
     return ret
   
@@ -108,7 +108,7 @@ def more_items_form(request):
               #path = os.path.join(cwd , '/images')
               
               #request.session.flash(path)
-               path = '/home/agha/Documents/fyp/mitteilender/mitteilender/images'
+               path = '/home/mahwish/mitteilender/mitteilender/static/'
                open(os.path.join(path, request.POST['image_data'].filename), 'w').write(fff)
               
               
