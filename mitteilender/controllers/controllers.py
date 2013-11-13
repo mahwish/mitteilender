@@ -5,15 +5,17 @@ from pyck.forms import model_form
 from wtforms.widgets.core import Select
 from wtforms import SelectField
 from ..models import DBSession, Info_projects, project_items
-    
+
 from ..forms import ContactForm, NewForm, ItemForm, MoreItemsForm
-    
+
 from pyck.controllers import CRUDController
 import os
+
 
 class Info_projectsCRUDController(CRUDController):
     model = Info_projects
     db_session = DBSession
+
 
 @view_config(route_name='home', renderer='home.mako')
 def my_view(request):
@@ -39,99 +41,66 @@ def contact_form(request):
 @view_config(route_name='json_project_list', renderer='json')
 def json_proj_list(request):
     plist = DBSession.query(Info_projects).all()
-    ret = {}
-    for p in plist:
-        ret[p.name] = p.ip_id
+    return plist
+
+
+def get_items(project_id, parent_item):
+    ret = []
+
+    items = DBSession.query(project_items).filter_by(infoproject_id=project_id, parent_item=parent_item).order_by(project_items.display_order)
+    for PI in items:
+        if 'section' == PI.item_type.lower():
+            PI.subitems = get_items(project_id, PI.item_name)
+
+        ret.append(PI)
 
     return ret
 
 
 @view_config(route_name='json_project_details', renderer='json')
 def project_details(request):
-    
+
     project_name = request.matchdict['pname']
     P = DBSession.query(Info_projects).filter_by(name=project_name).first()
     if not P:
         return HTTPNotFound(message="Project %s does not exist" % project_name)
 
-    PIs = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id).order_by(project_items.display_order)
-    ret = []
-    
-    for PI in PIs:
-        ret.append(dict(item_name=PI.item_name, item_type=PI.item_type, display_order=PI.display_order, parent_item=PI.parent_item, email=PI.email, cell_num=PI.cell_num, landline=PI.landline, images_title=PI.images_title))
-    
-    return ret
-  
-@view_config(route_name='dbshow', renderer="dbshow.mako")   
-def my_savings(request):
-  
-  
-  
-  
-    var1=request.POST['name1']
-    var2=request.POST['name2']
-    model=Info_projects(name=var1, ip_description=var2)
-    DBSession.add(model)
-    acc2 = DBSession.query(Info_projects).all()
-    
-    return {'acc2':acc2}  
+    project_details = get_items(P.ip_id, '')
+
+    return project_details
 
 
-@view_config(route_name='image', renderer='json')
-def image(request):
-    p = request.static_url('/home/mahwish/mitteilender/mitteilender/static/komodo1.png')
-    import webbrowser
-    webbrowser.open(p)
-  
-  
-@view_config(route_name='mahi', renderer="mahi.mako")   
-def my_sav(request):
-  return {}
-
-@view_config(route_name='project_list', renderer='project_list.mako')   
-def my_func(request):
-    plist = DBSession.query(Info_projects).all()
-    
-    return {'plist':plist}
-
-@view_config(route_name='more_items', renderer="more_items.mako")
-def more_items_form(request):
-
-            f = MoreItemsForm(request.POST)   # empty form initializes if not a POST request
-            if 'POST' == request.method and 'form.submitted' in request.params:
-	      if f.validate():
-              #fff = os.path.realpath(f.image_data.data)
-               fff = request.POST['image_data'].file.read()
-              #y   = f.image_data.data
-              #cwd = os.getcwd()
-              #path = cwd + '/images'
-              #path = os.path.join(cwd , '/images')
-              
-              #request.session.flash(path)
-               path = '/home/mahwish/mitteilender/mitteilender/static/'
-               open(os.path.join(path, request.POST['image_data'].filename), 'w').write(fff)
-              
-              
-             
-               import webbrowser
-               webbrowser.open(path)
-             
-            return {'more_items_form': f}
+@view_config(route_name='project_list', renderer='project_list.mako')
+def project_list(request):
+    projects = DBSession.query(Info_projects).all()
+    return {'projects': projects}
 
 
-@view_config(route_name='item', renderer="item.mako")
-def item_form(request):
+@view_config(route_name='upload_image', renderer='upload_image.mako')
+def upload_image(request):
 
-    f = ItemForm(request.POST)   # empty form initializes if not a POST request
+    project_name = request.matchdict['pname']
 
-    if 'POST' == request.method and 'form.submitted' in request.params:
-        if f.validate():
-            #TODO: Do email sending here.
+    if 'POST' == request.method:
+        item_id = int(request.POST['item_id'])
+        image_data = request.POST['image_file'].file.read()
+        project_item = DBSession.query(project_items).filter_by(pi_id=item_id).first()
+        if not project_item:
+            return HTTPNotFound(message="Project item does not exist")
 
-            request.session.flash("Your message has been sent!")
-            return HTTPFound(location=request.route_url('home'))
+        current_folder = os.path.dirname(__file__)
+        filename = "../static/uploaded_images/%i.jpg" % item_id
+        complete_path = os.path.abspath(os.path.join(current_folder, filename))
+        #print(complete_path)
+        open(complete_path, 'wb').write(image_data)
+        project_item.item_value = 'static/uploaded_images/%i.jpg' % item_id
+        request.session.flash("Image uploaded!")
+        
+    P = DBSession.query(Info_projects).filter_by(name=project_name).first()
+    if not P:
+        return HTTPNotFound(message="Project %s does not exist" % project_name)
 
-    return {'item_form': f}
+    image_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id, item_type='image').order_by(project_items.display_order)
 
+    return {'project': P, 'image_items': image_items}
 
- 

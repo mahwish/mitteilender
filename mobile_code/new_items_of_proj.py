@@ -1,79 +1,117 @@
 import urllib2
 import json
 import android
- 
-SERVER_IP = '192.168.1.3'
+
+SERVER_IP = '192.168.1.4'
 SERVER_PORT = 6543
- 
- 
+
+
 def get_info_projects():
     "Fetches info projects list from server and returns as a python list"
- 
+
     url = "http://{server_ip}:{port}/json/project_list".format(server_ip=SERVER_IP, port=SERVER_PORT)
     json_data = urllib2.urlopen(url).read()
- 
+
     return json.loads(json_data)
-  
- 
+
+
 def select_info_project(droid, project_list):
- 
+
     droid.dialogCreateAlert("Select Info Project")
-    droid.dialogSetItems(project_list)
+    dialog_items = []
+    for P in project_list:
+        dialog_items.append(P['name'])
+
+    droid.dialogSetItems(dialog_items)
     droid.dialogShow()
     response = droid.dialogGetResponse().result
- 
+
     #{u'item': 0}
-    project = project_list[response['item']]
+    project = project_list[response['item']]['name']
     url = ("http://{server_ip}:{port}/json/project_details/" + project).format(server_ip=SERVER_IP, port=SERVER_PORT)
     json_data = urllib2.urlopen(url).read()
- 
+
     p = json.loads(json_data)
     return p
-    
-    
 
- 
- 
+
+def display_project_items(project_details):
+    """
+    Given a list of project items, displays them and returns the selected item
+    """
+
+    display_list = []
+    for item in project_details:
+        item_type = item['item_type'].lower()
+        if 'section' == item_type:
+            s = "{item_name} >>".format(**item)
+        elif 'image' == item_type:
+            s = "{item_name} (image)".format(**item)
+        elif 'url' == item_type:
+            s = "{item_name} (url):\n {item_value}".format(**item)
+        elif 'cell' == item_type:
+            s = "{item_name} (cell):\n {item_value}".format(**item)
+        else:
+            s = "{item_name}:\n {item_value}".format(**item)
+
+        display_list.append(s)
+
+    droid.dialogCreateAlert("Project Items")
+    droid.dialogSetItems(display_list)
+    droid.dialogShow()
+    result = droid.dialogGetResponse().result
+
+    return project_details[result['item']]
+
+
+def display_project(items):
+
+    selected_item = display_project_items(items)
+    if 'text' == selected_item['item_type']:
+        droid.makeToast("You selected: " + selected_item['item_name'])
+    elif 'image' == selected_item['item_type']:
+        image_url = ("http://{server_ip}:{port}/{image_url}").format(server_ip=SERVER_IP,
+                                                                     port=SERVER_PORT,
+                                                                     image_url=selected_item['item_value'])
+        droid.view(image_url, "image/*")
+    elif 'section' == selected_item['item_type']:
+        display_project(selected_item['subitems'])
+
 if '__main__' == __name__:
- 
+
     droid = android.Android()
     info_projects = get_info_projects()
-    selected_project = select_info_project(droid, info_projects.keys())
-    droid.dialogCreateAlert("The items of selected project are as follows:")
-    droid.dialogSetItems(selected_project)
-    
-    listt = selected_project[0]
-    droid.dialogSetItems(listt.keys())
-    droid.dialogShow()
-    result=droid.dialogGetResponse().result
-    if result.has_key("item"):
-      if (result["item"] == 0): 
-      
-        option = ['Message','Call']
-        droid.dialogCreateAlert("Select any one option from the following:")
-        droid.dialogSetItems(option)
-        droid.dialogShow()
-        result=droid.dialogGetResponse().result
-        if (result["item"] == 0):
-	  droid.dialogCreateInput("Message", "Please type your message")
-          droid.dialogSetPositiveButtonText("OK")
-          droid.dialogShow()
-          result = droid.dialogGetResponse().result
-          print(result)
-          droid.smsSend(listt['cell_num'], result[u'value'])
-        elif (result["item"] == 1):  
-          droid.phoneCallNumber(listt['cell_num'])
-        else:
-          droid.makeToast("neutral")
-      elif (result["item"] == 5):
-	droid.phoneCallNumber(listt['landline'])
-      elif (result["item"] == 6):
-	droid.sendEmail(listt['email'],"","")
-	
-	
-      elif (result["item"] == 1):
-	droid.view("/home/mahwish/mitteilender/mitteilender/static/exhibition_marquee_floor_plan_20130320_1894935057.jpg","image/*")
-      #droid.makeToast("nooo")
+    project_details = select_info_project(droid, info_projects)
+    display_project(project_details)
+
+#    if 'item' in result:
+#
+#        if (result["item"] == 0): 
+#            option = ['Message','Call']
+#            droid.dialogCreateAlert("Select any one option from the following:")
+#            droid.dialogSetItems(option)
+#            droid.dialogShow()
+#            result=droid.dialogGetResponse().result
+#            if (result["item"] == 0):
+#      droid.dialogCreateInput("Message", "Please type your message")
+#          droid.dialogSetPositiveButtonText("OK")
+#          droid.dialogShow()
+#          result = droid.dialogGetResponse().result
+#          print(result)
+#          droid.smsSend(listt['cell_num'], result[u'value'])
+#        elif (result["item"] == 1):  
+#          droid.phoneCallNumber(listt['cell_num'])
+#        else:
+#          droid.makeToast("neutral")
+#      elif (result["item"] == 5):
+#    droid.phoneCallNumber(listt['landline'])
+#      elif (result["item"] == 6):
+#    droid.sendEmail(listt['email'],"","")
+#    
+#    
+#      elif (result["item"] == 1):
+#    droid.view("/home/mahwish/mitteilender/mitteilender/static/exhibition_marquee_floor_plan_20130320_1894935057.jpg","image/*")
+#      #droid.makeToast("nooo")
     
 
       

@@ -40,6 +40,7 @@ def main(global_config, **settings):
     config.add_route('project_list', '/project_list')
     config.add_route('json_project_list', 'json/project_list')
     config.add_route('json_project_details', 'json/project_details/{pname}')
+    config.add_route('upload_image', '{pname}/upload_image')
     config.add_route('more_items', '/more_items')
     config.add_route('image', 'json/image')
     #config.add_route('uploaded', '/uploaded')
