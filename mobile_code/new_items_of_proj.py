@@ -51,6 +51,7 @@ def display_project_items(project_details):
             s = "{item_name} (url):\n {item_value}".format(**item)
         elif 'cell' == item_type:
             s = "{item_name} (cell):\n {item_value}".format(**item)
+            
         else:
             s = "{item_name}:\n {item_value}".format(**item)
 
@@ -74,6 +75,10 @@ def display_project(items):
                                                                      port=SERVER_PORT,
                                                                      image_url=selected_item['item_value'])
         droid.view(image_url, "image/*")
+    elif 'cell' == selected_item['item_type']:
+      droid.phoneCallNumber('03414763196')
+    elif 'url' == selected_item['item_type']:
+      droid.view("http://www.google.com")    
     elif 'section' == selected_item['item_type']:
         display_project(selected_item['subitems'])
 
