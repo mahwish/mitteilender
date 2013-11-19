@@ -76,9 +76,11 @@ def display_project(items):
                                                                      image_url=selected_item['item_value'])
         droid.view(image_url, "image/*")
     elif 'cell' == selected_item['item_type']:
-      droid.phoneCallNumber('03414763196')
+      droid.phoneCallNumber(selected_item['item_value'])
+      #droid.phoneCallNumber('03414763196')
     elif 'url' == selected_item['item_type']:
-      droid.view("http://www.google.com")    
+      droid.view(selected_item['item_value'])
+      #droid.view("http://www.google.com")    
     elif 'section' == selected_item['item_type']:
         display_project(selected_item['subitems'])
 
