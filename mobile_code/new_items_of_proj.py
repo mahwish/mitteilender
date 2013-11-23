@@ -2,7 +2,7 @@ import urllib2
 import json
 import android
 
-SERVER_IP = '192.168.1.4'
+SERVER_IP = '192.168.1.5'
 SERVER_PORT = 6543
 
 
@@ -51,7 +51,12 @@ def display_project_items(project_details):
             s = "{item_name} (url):\n {item_value}".format(**item)
         elif 'cell' == item_type:
             s = "{item_name} (cell):\n {item_value}".format(**item)
-            
+        elif 'email' == item_type:
+	    s = "{item_name} (email):\n {item_value}".format(**item)
+	elif 'call' == item_type:
+	    s = "{item_name} (email):\n {item_value}".format(**item)    
+        elif 'sms' == item_type:
+	    s = "{item_name} (email):\n {item_value}".format(**item)    
         else:
             s = "{item_name}:\n {item_value}".format(**item)
 
@@ -77,10 +82,31 @@ def display_project(items):
         droid.view(image_url, "image/*")
     elif 'cell' == selected_item['item_type']:
       droid.phoneCallNumber(selected_item['item_value'])
-      #droid.phoneCallNumber('03414763196')
+    elif 'call' == selected_item['item_type']:
+      droid.phoneCallNumber(selected_item['item_value'])
+    elif 'sms' == selected_item['item_type']:
+      droid.dialogCreateInput("Message", "Please type your message")
+      droid.dialogSetPositiveButtonText("OK")
+      droid.dialogShow()
+      result = droid.dialogGetResponse().result
+      
+      print(result)
+          
+      num=selected_item['item_value'] 
+      print num
+      droid.smsSend(num, result[u'value'])
+      #droid.smsSend([selected_item['item_value']],result[u'value'])  
+      
+      
+    elif 'email' == selected_item['item_type']:
+      str = selected_item['item_value']
+      droid.sendEmail(str,"","")
+      #droid.sendEmail([selected_item['item_value']],"hi","")
+      
+      
+      
     elif 'url' == selected_item['item_type']:
-      droid.view(selected_item['item_value'])
-      #droid.view("http://www.google.com")    
+      droid.view(selected_item['item_value'])    
     elif 'section' == selected_item['item_type']:
         display_project(selected_item['subitems'])
 
