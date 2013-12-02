@@ -116,18 +116,19 @@ def upload_file(request):
             return HTTPNotFound(message="Project item does not exist")
 
         current_folder = os.path.dirname(__file__)
-        filename = "../static/uploaded_files/%i.odt" % item_id
+        filename = "../static/uploaded_files/%i.csv" % item_id
         complete_path = os.path.abspath(os.path.join(current_folder, filename))
         #print(complete_path)
         open(complete_path, 'wb').write(file_data)
-        project_item.item_value = 'static/uploaded_files/%i.odt' % item_id
+        project_item.item_value = 'static/uploaded_files/%i.csv' % item_id
         request.session.flash("File uploaded!")
+        
         
     P = DBSession.query(Info_projects).filter_by(name=project_name).first()
     if not P:
         return HTTPNotFound(message="Project %s does not exist" % project_name)
 
     file_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id, item_type='file').order_by(project_items.display_order)
-
+   
     return {'project': P, 'file_items': file_items}
 

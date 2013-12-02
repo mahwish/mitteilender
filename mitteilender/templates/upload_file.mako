@@ -19,12 +19,13 @@
                 <td>
                     <form action="${request.route_url('upload_file', pname=project.name)}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="item_id" value="${k.pi_id}" />
-                        <input type="file" name="data_file" />
+                        
+                        <input type="file" name="upload_file" />
                         <input type="submit" value="upload" />
                     </form>
                 </td>
                 <td>
-                    <img src="${request.static_url('mitteilender:static/uploaded_files/%i.odt' % k.pi_id)}" height="50" width="50"
+                    <img src="${request.static_url('mitteilender:static/uploaded_files/%i.csv' % k.pi_id)}" height="50" width="50"
                 </td>
             </tr>
         %endfor
