@@ -46,4 +46,26 @@ class project_items(Base):
 
         return d
 
+class db_itemss(Base):
+    __tablename__ = 'db_itemss'
+
+    db_item_id = Column(Integer, primary_key=True)
+    projectitem_id = Column(Integer, ForeignKey(project_items.pi_id))
+    field_name = Column(Unicode(200))
+    field_type = Column(Unicode(200))
+    
+    #dbproject = relationship(db_recordss, backref=backref('items'))
+    
+
+class db_recordss(Base):
+    __tablename__ = 'db_recordss'
+
+    db_rec_id = Column(Integer, primary_key=True)
+    
+    dbitem_id = Column(Integer, ForeignKey(db_itemss.db_item_id), primary_key=True)
+    
+    db_item_value = Column(Unicode(200))
+      
+
+
 
