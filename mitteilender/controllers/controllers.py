@@ -23,7 +23,7 @@ class Info_projectsCRUDController(CRUDController):
 @view_config(route_name='home', renderer='home.mako')
 def my_view(request):
     one = None
-    return {'one': one, 'project': 'designer'}
+    return {'one': one, 'project': 'mitteilender'}
 
 
 @view_config(route_name='contact', renderer="contact.mako")
@@ -113,80 +113,157 @@ def upload_file(request):
     header = False
     fields = []
     if 'POST' == request.method:
-        r = csv.reader(request.POST['csv_file'].file)
-       
+        item_id = int(request.POST['item_id']) 
+        project_item = DBSession.query(project_items).filter_by(pi_id=item_id).first()
+        if not project_item:
+            return HTTPNotFound(message="Project item does not exist")
+        r = csv.reader(request.POST['csv_file'].file)  
         for row in r:
-	    
-	    #print(row)
 	    if not header:
 	        header= row
-	    records.append(row)
-	        
-	        #continue
-	        
-	  
-	    #print(records)
-	        
-	        
-	        #continue
-	    #records.append(row)
-	    #print(records)
-	    
-        request.session.flash("csv file uploaded!")
-        #print(fields)
-        print(records)
-        #return {'fields': fields, 'records': records}
-        
- 
+	        fields=header
+	        continue
+	    records.append(row)    
+        i=0
+        s=0
+        it=[]
+        for f in fields:
+          D = db_itemss()
+          D.field_name=f
+          D.projectitem_id=item_id
+          DBSession.add(D)
+          DBSession.flush()
+          it.append(D.db_item_id)
+        rec_id = 0  
+        for o in records:
+         rec_id += 1
+         for i in range(0, len(fields)):
+	   k=db_recordss()
+	   k.db_rec_id = rec_id
+	   k.dbitem_id = it[i]
+	   k.db_item_value=o[i]
+	   DBSession.add(k)
+	   DBSession.flush()
     P = DBSession.query(Info_projects).filter_by(name=project_name).first()
     if not P:
         return HTTPNotFound(message="Project %s does not exist" % project_name)
-
-    #image_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id).order_by(project_items.display_order)
-
-    return {'project': P, 'fields': fields, 'records': records}
-
+    f_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id, item_type='dbitem').order_by(project_items.display_order)
+    return {'project': P, 'fields': fields, 'records': records,'f_items': f_items}
+    
+    
 
 @view_config(route_name='field_type', renderer="field_type.mako")   
-def my_pro(request):  
-    #project_name = request.matchdict['pname']
-    f_form = FieldForm(request.POST)
-    names = DBSession.query(db_itemss.field_name).all()
+def my_pro(request): 
     
-    
-    f_form.field_name = names
+       
+        fields=[]
+        c=[]
+        f_form=FieldForm(request.POST)
+       
+        
+	
+       
+
+        #form = F(request.POST, ...)
+        project_name = request.matchdict['pname']
+      
+        item_id = DBSession.query(project_items.pi_id).filter_by(item_type='dbitem').first()
+       
+        i=str(item_id[0])
+      
+	
+	
+        
+       
+        
+	if not item_id:
+            return HTTPNotFound(message="Project item does not exist")
+	
+        db_fields = DBSession.query(db_itemss.field_name).filter_by(projectitem_id=i).all()
+        c=(db_fields)
+        for cc in c :
+	  fields.append(str(cc[0]))
+        print(":::")
+        #print(fields)
+        print("PP")
+
+        #project_item = DBSession.query(db_itemss).filter_by(field_name,projectitem_id=item_id).all()
+        
     #print(f_form)
-    types=['text','cell','image','email','map']
-    
-    f_form.field_type.choices = types
-    print(f_form.field_type.choices)
-    
-    if "POST" == request.method and f_form.validate():
+        types=[('text','text'),('cell','cell'),('image','image'),('map','map')]
+        f_form.field_type.choices=types
+        if 'POST' == request.method:
+	  #strikes = (request.POST['colors'])
+	  request.session.flash("strikes")
+	   
+	
+	  #for i in request.POST('dd'):
+	    #strikes = (request.POST('dd'))
+	  # for x in request.POST(str('dd')):
+	   
+	    
+	   
+	  
+	   
+	  
+	#  image_data = request.POST['image_file'].file.read()
+         # project_item = DBSession.query(project_items).filter_by(pi_id=item_id).first()
+       # if not project_item:
+        #    return HTTPNotFound(message="Project item does not exist")
 
         
-     #   P = Books()
-        #request.session.flash({Books.name})
-      #  product_form.populate_obj(P)
-       # DBSession.add(P)
+    
+        #f_form.field_type.choices = types
+       
+	 
+	  
+
         
-        request.session.flash("Books Added Successfully!")
+        #P = Product()
+           
+        #product_form.populate_obj(P)
+        #DBSession.add(P)
+    
+        #if "POST" == request.method and f_form.validate():
+	 # for t in f_form.field_type.choices:
+	  #print(t)
+        
         #return HTTPFound(location=request.route_url('home'))
-    
-    
-    return {'f_form': f_form,'f_form.field_type.choices':f_form.field_type.choices,'post_url': request.route_url('field_type')}
+    #project_name = request.matchdict['pname']
+    #P = DBSession.query(Info_projects).filter_by(name=project_name).first()
+    #if not P:
+     #   return HTTPNotFound(message="Project %s does not exist" % project_name)
+        P = DBSession.query(Info_projects).filter_by(name=project_name).first()
+    #image_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id).order_by(project_items.display_order)
+        if not P:
+          return HTTPNotFound(message="Project %s does not exist" % project_name)
+
+    #image_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id).order_by(project_items.display_order)
+        f_items = DBSession.query(project_items).filter_by(infoproject_id=P.ip_id, item_type='dbitem').order_by(project_items.display_order)
+       
+	    
+        
+	    
+	  
+        return { 'types':types, 'fields':fields,'f_form.field_type.choices':f_form.field_type.choices,'f_items':f_items,'project':P}
     #P = DBSession.query(Info_projects).filter_by(name=project_name).first()
     #if not P:
      #   return HTTPNotFound(message="Project %s does not exist" % project_name)
  
     #return{'f_form':f_form}
 
+#@view_config(route_name='field_save')
+#def ff(request):
 
+ #  if "POST" == request.method and f_form.validate():
+  #   request.session.flash("Image uploaded!")
+   
 
 
 
 	
 #@view_config(route_name='show_f', renderer='show_f.mako')
-#def show_csv(request):
+
   
  # reader = csv.reader(open("/home/mahwish/mitteilender/mitteilender/static/uploaded_csv/57.csv", "rb"))
  # for row in reader:

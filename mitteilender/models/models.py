@@ -1,14 +1,19 @@
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, mapper
+from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy import (
     Column,
+    Table,
     Integer,
     Unicode,
     UnicodeText,
-    ForeignKey
+    ForeignKey,
+    MetaData
     )
 
 from . import DBSession, Base
 
+
+      
 
 class Info_projects(Base):
     __tablename__ = 'info_projects'
@@ -46,6 +51,8 @@ class project_items(Base):
 
         return d
 
+
+
 class db_itemss(Base):
     __tablename__ = 'db_itemss'
 
@@ -54,7 +61,7 @@ class db_itemss(Base):
     field_name = Column(Unicode(200))
     field_type = Column(Unicode(200))
     
-    #dbproject = relationship(db_recordss, backref=backref('items'))
+    #dbproject = relationship(project_items, backref=backref('dbb'))
     
 
 class db_recordss(Base):
@@ -62,10 +69,18 @@ class db_recordss(Base):
 
     db_rec_id = Column(Integer, primary_key=True)
     
-    dbitem_id = Column(Integer, ForeignKey(db_itemss.db_item_id), primary_key=True)
+    dbitem_id = Column(Integer, ForeignKey(db_itemss.db_item_id),primary_key=True)
     
     db_item_value = Column(Unicode(200))
-      
+    #dbrec = relationship(db_itemss, backref=backref('dbr'))
+    
+    
+    
+    
+    
+    
+    
+
 
 
 
