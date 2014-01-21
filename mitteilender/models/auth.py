@@ -40,7 +40,7 @@ class User(Base):
     user_id = Column(Unicode(100), primary_key=True)
     password = Column(Unicode(40))
 
-    def __init__(self, user_id='', password=''):
+    def __init__(self, user_id='123', password='123'):
         self.user_id = user_id
         self.password = password
 
