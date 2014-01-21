@@ -11,17 +11,53 @@
  
 
 
+<<<<<<< HEAD
 
  
       
          Parent Item<input type="text" name="p_item"  value=""  /><br /><br /><br />
         
                      
+=======
+    <h1>Upload Csv file - Csv files in Project: ${project.name}</h1>
+    <table>
+     <td>
+       %for f in f_items:
+            <tr class="${loop.cycle('oddrow', 'evenrow')}">
+                <td>${f.item_name}</td>
+                <td>${f.item_value}</td>
+                <td>${f.parent_item}</td>
+                <td>
+                    <form action="${request.route_url('upload_f', pname=project.name)}" method="POST" enctype="multipart/form-data">
+                        
+>>>>>>> bcea36c4043c05d26b70fceef21c71b44940e14f
                         <input type="file" name="csv_file" />
+                         
                         <input type="submit" value="upload" />
+                         <input type="hidden" name="item_id" value="${f.pi_id}" />
                     </form>
+<<<<<<< HEAD
                 
                     
                
         
 </div>
+=======
+                </td>
+             %endfor
+        <tr class="tr_heading">
+        %for f in fields:
+        <th>${f}</th>
+        %endfor
+            
+        </tr>
+        %for r in records:
+            <tr class="${loop.cycle('oddrow', 'evenrow')}">
+                %for item in r:
+                <td>${item}</td>
+                %endfor
+            </tr>
+        %endfor
+    </table>
+</div> 
+>>>>>>> bcea36c4043c05d26b70fceef21c71b44940e14f
