@@ -1,3 +1,17 @@
+<%!
+parent_item = None
+all_items=[]
+indent_level=1
+def display_children(items,all_items,indent_level=1)
+ items = DBSession.query(project_items).filter_by(infoproject_id=project_id, parent_item=parent_item).order_by(project_items.display_order).all()
+ for k in items:
+  if k.parent_item = True
+   parent_item=pi_id
+   child_items=DBSession.query(project_items).filter_by(parent_item=pi_id).order_by(project_items.display_order).all()
+   display_children(child_items,indent_level=indent_level+1)
+ 
+       %>
+
 
   
 <%inherit file="base.mako"/>
