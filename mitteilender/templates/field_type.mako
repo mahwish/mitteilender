@@ -5,6 +5,10 @@
 </%def>
 
 <div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
  <form action="${request.route_url('field_type',item_id=item_id)}" method="POST">
 
 
@@ -35,6 +39,28 @@ ${fields[f]}
   <option value="cell">Cell</option>
   <option value="email">Email</option>
 
+<<<<<<< HEAD
+=======
+=======
+<h1> Field Type</h1>
+<div style="margin-left: 50px;">
+<form action="${request.route_url('field_type')}" method="POST" enctype="multipart/form-data">
+    
+   <input type="file" name="csv_file" />
+                        <input type="submit" value="upload" />
+                     </form>
+ <form action="${request.route_url('field_type')}" method="POST" enctype="multipart/form-data">
+<br><br><br><br><br><br><br><br><input type="submit" value="done" /><br><br>
+  %for f in f_form.field_name.data:
+  ${f}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  ${f_form.field_type}
+  <br><br><br><br><br><br><br><br>
+  %endfor
+  <br><br>
+  
+</form>
+</div>
+>>>>>>> bcea36c4043c05d26b70fceef21c71b44940e14f
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
  
 
 
@@ -50,4 +76,8 @@ ${fields[f]}
 
 
 
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332

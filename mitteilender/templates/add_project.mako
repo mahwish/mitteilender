@@ -1,5 +1,8 @@
 <%inherit file="base.mako"/>
+<<<<<<< HEAD
 <%inherit file="home.mako"/>
+=======
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
 
 <%def name="title()">
 Add new Project
