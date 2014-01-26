@@ -1,15 +1,14 @@
 <%!
-parent_item = None
-all_items=[]
+
+child_items=[]
 indent_level=1
-def display_children(items,all_items,indent_level=1)
- items = DBSession.query(project_items).filter_by(infoproject_id=project_id, parent_item=parent_item).order_by(project_items.display_order).all()
- for k in items:
-  if k.parent_item = True
-   parent_item=pi_id
-   child_items=DBSession.query(project_items).filter_by(parent_item=pi_id).order_by(project_items.display_order).all()
-   display_children(child_items,indent_level=indent_level+1)
+def display_children(items,p_items,indent_level):
  
+ for k in p_items:
+  if (k.pi_id == items.parent_item):
+   child_items.append(items)
+   indent_level=indent_level+1
+   display_children(child_items,p_items,indent_level)
        %>
 
 
