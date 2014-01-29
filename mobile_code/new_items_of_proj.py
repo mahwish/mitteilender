@@ -2,7 +2,7 @@ import urllib2
 import json
 import android
 
-SERVER_IP = '192.168.1.5'
+SERVER_IP = '192.168.1.2'
 SERVER_PORT = 6543
 
 
@@ -54,9 +54,9 @@ def display_project_items(project_details):
         elif 'email' == item_type:
 	    s = "{item_name} (email):\n {item_value}".format(**item)
 	elif 'call' == item_type:
-	    s = "{item_name} (email):\n {item_value}".format(**item)    
+	    s = "{item_name} (call):\n {item_value}".format(**item)    
         elif 'sms' == item_type:
-	    s = "{item_name} (email):\n {item_value}".format(**item)    
+	    s = "{item_name} (sms):\n {item_value}".format(**item)    
         else:
             s = "{item_name}:\n {item_value}".format(**item)
 
