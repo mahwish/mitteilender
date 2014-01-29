@@ -1,5 +1,4 @@
 <%inherit file="base.mako"/>
-<<<<<<< HEAD
 
  <!DOCTYPE html>
 <html dir="ltr" lang="en-US"><head><!-- Created by Artisteer v4.0.0.58833 -->
@@ -65,26 +64,10 @@
     ${add_project.as_p() | n}
     <br /><br /><br /><br /><br /><br />
    <pre>                                                <input type="submit" name="form.submitted" value="Create" /></pre>
-=======
-<%inherit file="home.mako"/>
-
-<%def name="title()">
-Add new Project
-</%def>
-      <div class="middle align-center">
-        <p><font color="teal"><b>
-<div>
-<h1>New Project</h1>
-
-<form action="${request.route_url('add_project')}" method="POST">
-    ${add_project.as_p() | n}
-    <input type="submit" name="form.submitted" value="Create" />
->>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 </form>
 
 <br /><br /><br /><br /><br /><br />
 </div> 
-<<<<<<< HEAD
 
 </article></div>
                     </div>
@@ -113,5 +96,3 @@ Add new Project
 
     
 
-=======
->>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
