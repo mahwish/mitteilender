@@ -7,9 +7,13 @@
       <div class="middle align-center">
         <p><font color="teal"><b>
 <div>
+<<<<<<< HEAD
  <h1>Project Name : ${project_name}
   <br /><br />
 Add Text Item    </h1>
+=======
+<h1>New Text Item</h1>
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 
 <form action="${request.route_url('text_item',pname=project_name)}" method="POST">
     ${add_text.as_p() | n}
@@ -32,6 +36,7 @@ Add Text Item    </h1>
 
 
  <option name=${i['sec_id']} value=${i['sec_id']} >${i['sec_name']}</option>
+<<<<<<< HEAD
   
  
 
@@ -48,3 +53,15 @@ Add Text Item    </h1>
 <br /><br /><br /><br /><br /><br />
 </div> 
  
+=======
+ 
+
+ %endfor
+  </select>
+  %endif
+</form>
+
+<br /><br /><br /><br /><br /><br />
+</div> 
+  <input type="submit" name="form.submitted" value="Add" />
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b

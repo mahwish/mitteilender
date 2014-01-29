@@ -26,7 +26,14 @@ mitteilender/forms/email.py
 mitteilender/forms/field_form.py
 mitteilender/forms/item.py
 mitteilender/forms/more_items.py
+<<<<<<< HEAD
 mitteilender/forms/new_input.py
+=======
+<<<<<<< HEAD
+mitteilender/forms/new_input.py
+=======
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 mitteilender/models/__init__.py
 mitteilender/models/auth.py
 mitteilender/models/models.py
@@ -80,8 +87,16 @@ mitteilender/static/uploaded_images/1.jpg
 mitteilender/static/uploaded_images/2.jpg
 mitteilender/static/uploaded_images/20.jpg
 mitteilender/static/uploaded_images/4.jpg
+<<<<<<< HEAD
 mitteilender/static/uploaded_images/6.jpg
 mitteilender/static/uploaded_images/9.jpg
+=======
+<<<<<<< HEAD
+mitteilender/static/uploaded_images/6.jpg
+mitteilender/static/uploaded_images/9.jpg
+=======
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 mitteilender/templates/add.mako
 mitteilender/templates/add_project.mako
 mitteilender/templates/base.mako
@@ -99,7 +114,14 @@ mitteilender/templates/intro.mako
 mitteilender/templates/item.mako
 mitteilender/templates/mahi.mako
 mitteilender/templates/more_items.mako
+<<<<<<< HEAD
 mitteilender/templates/new_input.mako
+=======
+<<<<<<< HEAD
+mitteilender/templates/new_input.mako
+=======
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 mitteilender/templates/p_list.mako
 mitteilender/templates/primary_display.mako
 mitteilender/templates/pyckauth_base.mako
@@ -113,8 +135,16 @@ mitteilender/templates/show_dbitem.mako
 mitteilender/templates/show_f.mako
 mitteilender/templates/show_image.mako
 mitteilender/templates/show_item.mako
+<<<<<<< HEAD
 mitteilender/templates/swap_display_order.mako
 mitteilender/templates/try.html
+=======
+<<<<<<< HEAD
+mitteilender/templates/swap_display_order.mako
+mitteilender/templates/try.html
+=======
+>>>>>>> 5b7b1152fb27074d2bd0aae1b196b4dfa2e15332
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 mitteilender/templates/try.mako
 mitteilender/templates/upload_f.mako
 mitteilender/templates/upload_image.mako

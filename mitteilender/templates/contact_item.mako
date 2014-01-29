@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,6 +109,8 @@ if ((p['cell_number'].value.length!=11)&&(p['landline_number'].value.length!=10)
             
             </head>
             <body>
+=======
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 <%inherit file="base.mako"/>
 <%inherit file="home.mako"/>
 
@@ -115,6 +118,7 @@ if ((p['cell_number'].value.length!=11)&&(p['landline_number'].value.length!=10)
   <h1>Add Contact Item: ${project_name}</h1>
 <div>
    
+<<<<<<< HEAD
                     <form name="p" action="${request.route_url('add_project_item', pname=project_name,item_type='Contact')}" method="POST" onsubmit="return validateForm(p)" >
                                 <br /><br /><br /> 
                                 <table>
@@ -137,12 +141,39 @@ if ((p['cell_number'].value.length!=11)&&(p['landline_number'].value.length!=10)
            
            </table>
                  
+=======
+                    <form action="${request.route_url('contact_item', pname=project_name)}" method="POST" >
+                                <br /><br /><br /> 
+                  Contact Item<input type="text" name="contact_name" value=""  /><br /><br /><br />
+                  
+                  
+                  
+                  
+                      <h1>      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp      &nbsp&nbsp&nbsp&nbspLanline </h1>
+                   Name: <input type="text" name="l_name" value=""  /><br /><br /><br />
+                     Number: <input type="text" name="l_num" value=""  /><br /><br /><br />
+                     
+                     
+                     <h1> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp      &nbsp&nbsp&nbsp&nbspCell </h1>
+                       Name: <input type="text" name="c_name" value=""  /><br /><br /><br />
+                     
+                         Number<input type="text" name="c_num" value=""  size="15" required /><br /><br /><br />
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
    
 
  
   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp      &nbsp&nbsp&nbsp&nbsp <input type="submit" name="form.submitted" value="Add" />
 
+<<<<<<< HEAD
          
+=======
+
+
+      
+
+        
+                     
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
                   
                       
                         
@@ -150,7 +181,13 @@ if ((p['cell_number'].value.length!=11)&&(p['landline_number'].value.length!=10)
                        
 
 </form>
+<<<<<<< HEAD
 </body>
 <br /><br /><br /><br /><br /><br />
 </div> 
 </html>
+=======
+
+<br /><br /><br /><br /><br /><br />
+</div> 
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b

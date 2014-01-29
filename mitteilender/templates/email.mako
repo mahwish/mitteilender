@@ -1,4 +1,5 @@
 <%inherit file="base.mako"/>
+<<<<<<< HEAD
 <%inherit file="home.mako"/>
 
 <%def name="title()">
@@ -48,3 +49,18 @@ Add Email Item    </h1>
 <br /><br /><br /><br /><br /><br />
 </div> 
  
+=======
+
+<%def name="title()">
+Project : ${project_name}
+</%def>
+
+<div>
+<h1>Contact Us</h1>
+<form action="${request.route_url('email',pname=project_name)}" method="POST">
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  ${add_email.as_p() | n}
+    <input type="submit" name="form.submitted" value="Add Item" />
+</form>
+<br /><br /><br /><br /><br /><br />
+</div>
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b

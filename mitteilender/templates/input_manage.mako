@@ -1,5 +1,6 @@
 <%inherit file="base.mako"/>
 
+<<<<<<< HEAD
 <table>
 
         <tr class="tr_heading">
@@ -27,10 +28,15 @@
 
 
  
+=======
+
+
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
 
 
 
 
+<<<<<<< HEAD
 <form action="${request.route_url('inputs/manage',item_id=pname,input_id=input_id)}" method="POST">
 
 
@@ -64,6 +70,48 @@
  
   
     <br /><br /><br /><br /><br /><br />  
+=======
+
+
+
+
+
+
+
+
+
+<form action="${request.route_url('input_manage',item_id=item_id,input_id=input_id)}" method="POST">
+
+
+Input Name:
+<input type="text" value=${input_name} >
+<br /><br /><br />
+<select name=fields>
+%for data in range(len(db_item)) :
+%for id in range(len(db_id)):
+%if (data==id):
+
+
+
+ <option  value=${db_id[id]} name=${db_id[id]}>${db_item[data]}</option>
+
+  %endif
+
+%endfor
+%endfor
+
+<select>
+<br /><br /><br />
+ <input type="radio" name=type value="open"> Open
+<br /><br /><br />
+ <input type="radio" name=type value="multi_select"> Multi Select
+<br /><br /><br />
+ <input type="radio" name=type value="single_select"> Single Select
+<br /><br /><br />
+ 
+  
+     
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
   <input type="submit" name="form.submitted" value="Add " />
 </form>
 

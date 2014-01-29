@@ -1,7 +1,13 @@
 <%inherit file="base.mako"/>
+<<<<<<< HEAD
 <%inherit file="home.mako"/>
 <div>
    <font color="teal" size="60px"> <font color="teal"><b> Add Project Item
+=======
+
+<div>
+    <h1>Add Project Item</h1>
+>>>>>>> 58e0521f5282513e432016741fbe067bf9fb781b
     <br /><br /><br />
     
  Please select any of the following items u want to add:
